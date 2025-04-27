@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173", // or whatever your React dev URL is
+    origin: "https://i-notebook-frontend-delta.vercel.app", // or whatever your React dev URL is
     credentials: true // optional if you're sending cookies
 }));
 app.use("/api/user", userRouter);
