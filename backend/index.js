@@ -1,5 +1,5 @@
 const express = require("express");
-const connectMongoose = require("./db.js");
+const mongoose = require("mongoose");
 const userRouter = require("./routes/user.routes.js");
 const notesRouter = require("./routes/notes.routes.js");
 const cors = require("cors");
@@ -19,11 +19,15 @@ app.get("/", async (req, res) => {
     res.send("app");
 });
 
-app.listen(process.env.PORT, async () => {
-    try {
-        await connectMongoose();
-        console.log(`Server started at port ${process.env.PORT}`);
-    } catch (error) {
-        console.log(error.message);
-    }
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log("Database Connected...");
+    app.listen(process.env.PORT, async () => {
+        try {
+            console.log(`Server started at port ${process.env.PORT}`);
+        } catch (error) {
+            console.log(error.message);
+        }
+    });
+}).catch((error) => {
+    console.log(error.message);
 });
