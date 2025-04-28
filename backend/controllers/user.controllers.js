@@ -10,7 +10,7 @@ const userSignup = async (req, res) => {
             return res.json({status: false, errors: errors.array()});
         } else {
             const {name, email, password} = req.body;
-            const emailExists = await userModel.findOne({email: email});
+            const emailExists = await userModel.find({email: email});
             if(emailExists) {
                 return res.json({success: false, errors: [{
                     type: "field",
